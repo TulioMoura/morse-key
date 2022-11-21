@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    use space to play a song
+    <button id = "startSound">Start</button>
+    <div>
+        frequency
+    <input type="range" name="frequency" id="freq" min="200" max="1800">
+        <div id = freqLabel>1000</div>
+    </div>
+    
+    
+</body>
+<script>
+
+var  audioCtx 
+var oscillator = null;
+const btn = document.getElementById("startSound");
+const freq = document.getElementById("freq")
+const freqLabel = document.getElementById("freqLabel")
+freq.addEventListener("change", updateFreqLabel)
+btn.addEventListener("click",createAudioContext)
+
+function updateFreqLabel(){
+    freqLabel.innerText = freq.value;
+    createAudioContext();
+}
+
+function createAudioContext(){
+audioCtx= new (window.AudioContext||window.webkitAudioContext)();
+oscillator = audioCtx.createOscillator()
+oscillator.type = 'square'
+oscillator.frequency.setValueAtTime(freq.value,audioCtx.currentTime)
+oscillator.connect(audioCtx.destination)
+}
+
+document.addEventListener('keypress', playsound)
+document.addEventListener('keyup', stopsound)
+
+function playsound(e){
+    if(e.code ==="Space"){
+        
+        try{
+            oscillator.start();
+        }
+        catch(e){
+            console.log(e.message)
+            oscillator.stop();
+            
+        }
+    }
+}
+function stopsound(e){
+    if(e.code==="Space"){
+        oscillator.stop();
+    }
+}
+</script>
+</html>
