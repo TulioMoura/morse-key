@@ -14,7 +14,7 @@
     <input type="range" name="frequency" id="freq" min="200" max="1800">
         <div id = freqLabel>1000</div>
     </div>
-    
+    <button id="manipulator">BIP</button>
     
 </body>
 <script>
@@ -24,6 +24,7 @@ var oscillator = null;
 const btn = document.getElementById("startSound");
 const freq = document.getElementById("freq")
 const freqLabel = document.getElementById("freqLabel")
+const man= document.getElementById("manipulator")
 freq.addEventListener("change", updateFreqLabel)
 btn.addEventListener("click",createAudioContext)
 
@@ -42,6 +43,10 @@ oscillator.connect(audioCtx.destination)
 
 document.addEventListener('keypress', playsound)
 document.addEventListener('keyup', stopsound)
+
+man.addEventListener('click', playsound)
+man.addEventListener('')
+
 
 function playsound(e){
     if(e.code ==="Space"){
