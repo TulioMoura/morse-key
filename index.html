@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<body>
-    use space to play a song
-    <button id = "startSound">Start</button>
+<body >
+    <div id="container">
+        <button id = "startSound">Iniciar áudio!</button>
     <div>
-        frequency
+        Frequency
     <input type="range" name="frequency" id="freq" min="200" max="1800">
         <div id = freqLabel>1000</div>
     </div>
     <button id="manipulator">BIP</button>
     
+    </div>
+    
 </body>
 <script>
-
 var  audioCtx 
 var oscillator = null;
 const btn = document.getElementById("startSound");
@@ -27,6 +29,7 @@ const freqLabel = document.getElementById("freqLabel")
 const man= document.getElementById("manipulator")
 freq.addEventListener("change", updateFreqLabel)
 btn.addEventListener("click",createAudioContext)
+
 
 function updateFreqLabel(){
     freqLabel.innerText = freq.value;
@@ -39,6 +42,7 @@ oscillator = audioCtx.createOscillator()
 oscillator.type = 'square'
 oscillator.frequency.setValueAtTime(freq.value,audioCtx.currentTime)
 oscillator.connect(audioCtx.destination)
+//btn.hidden= true;      
 }
 
 document.addEventListener('keypress', playsound)
